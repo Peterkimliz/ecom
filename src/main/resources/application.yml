@@ -1,0 +1,11 @@
+jwt:
+   secret:   Ef09upJbh0gSouoC51L9+Lzzgfq4oJG6b7xBK+Yhs4rNZVuGXu541StOS4l1r9IU   
+
+spring:
+  application:
+    name: ecom
+ 
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/ecom
+
