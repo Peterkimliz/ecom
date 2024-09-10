@@ -38,8 +38,7 @@ public class AuthenticationService {
                 .role(Role.USER)
                 .build();
         userRepository.save(userModel);
-        return UserResponseDto.builder().id(userModel.getId()).createdAt(userModel.getCreatedAt()).lastName(userModel.getLastName())
-                .firstName(userModel.getFirstName()).email(userModel.getEmail()).phone(userModel.getPhone()).build();
+        return UserResponseDto.builder().build();
 
     }
 

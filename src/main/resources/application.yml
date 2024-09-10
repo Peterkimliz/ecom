@@ -4,7 +4,6 @@ spring:
  
   data:
     mongodb:
-      uri: mongodb://localhost:27017/ecom
-      
-jwt:
-   secret:   Ef09upJbh0gSouoC51L9+Lzzgfq4oJG6b7xBK+Yhs4rNZVuGXu541StOS4l1r9IU   
+      uri: mongodb+srv://peterkimani:kimani89@cluster0.l6ma0.mongodb.net/?retryWrites=true&w=majority
+      database: commerce
+      # uri: mongodb://localhost:27017/ecom

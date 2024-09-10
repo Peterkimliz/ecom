@@ -20,8 +20,8 @@ import io.jsonwebtoken.security.Keys;
 public class JwtService {
     
 
-    @Value("${jwt.secret}")
-    private  String SECRET ;
+
+    private  String SECRET="Ef09upJbh0gSouoC51L9+Lzzgfq4oJG6b7xBK+Yhs4rNZVuGXu541StOS4l1r9IU " ;
 
     public String extractUsername(String token) {
       
