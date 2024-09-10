@@ -38,6 +38,8 @@ public class AuthenticationService {
                 .role(Role.USER)
                 .build();
         userRepository.save(userModel);
+         System.out.println("user already exists");
+         System.out.println(userModel.getId());
         return UserResponseDto.builder().build();
 
     }
