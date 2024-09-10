@@ -22,7 +22,9 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
 
     public UserResponseDto registerUser(UserRegistrationDto userRequestDto) {
+        System.out.println("hello");
         Optional<UserModel> uOptional = userRepository.findByEmail(userRequestDto.getEmail());
+        System.out.println(uOptional);
         if (uOptional.isPresent()) {
 
             throw new ResourceExists("User with email address already exists");
@@ -38,7 +40,9 @@ public class AuthenticationService {
                 .role(Role.USER)
                 .build();
         userRepository.save(userModel);
-        return UserResponseDto.builder().build();
+        return UserResponseDto.builder().createdAt(userModel.getCreatedAt()).email(userModel.getEmail())
+                .firstName(userModel.getFirstName()).lastName(userModel.getLastName()).id(userModel.getId())
+                .phone(userModel.getPhone()).build();
 
     }
 

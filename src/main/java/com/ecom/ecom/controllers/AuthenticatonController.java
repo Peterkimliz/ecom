@@ -22,7 +22,7 @@ public class AuthenticatonController {
     private final AuthenticationService authenticationService;
 
     @PostMapping("register")
-    public ResponseEntity<UserResponseDto> postMethodName(@RequestBody  @Validated UserRegistrationDto userRegistrationDto) {
+    public ResponseEntity<UserResponseDto> registerUser(@RequestBody  @Validated UserRegistrationDto userRegistrationDto) {
         return new ResponseEntity<UserResponseDto>(authenticationService.registerUser(userRegistrationDto),
                 HttpStatus.CREATED);
     }

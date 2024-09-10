@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "user")
+@Document(collection = "userModel")
 @Builder
 public class UserModel  implements UserDetails{
 
