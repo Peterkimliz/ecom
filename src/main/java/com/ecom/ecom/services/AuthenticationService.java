@@ -24,7 +24,7 @@ public class AuthenticationService {
     public UserResponseDto registerUser(UserRegistrationDto userRequestDto) {
         Optional<UserModel> uOptional = userRepository.findByEmail(userRequestDto.getEmail());
         if (uOptional.isPresent()) {
-            System.out.println("user already exists");
+
             throw new ResourceExists("User with email address already exists");
         }
         UserModel userModel = UserModel
@@ -38,7 +38,8 @@ public class AuthenticationService {
                 .role(Role.USER)
                 .build();
         userRepository.save(userModel);
-        return UserResponseDto.builder().build();
+        return UserResponseDto.builder().id(userModel.getId()).createdAt(userModel.getCreatedAt()).lastName(userModel.getLastName())
+                .firstName(userModel.getFirstName()).email(userModel.getEmail()).phone(userModel.getPhone()).build();
 
     }
 
