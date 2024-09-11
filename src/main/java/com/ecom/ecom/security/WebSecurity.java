@@ -30,7 +30,7 @@ public class WebSecurity {
          httpSecurity
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/api/v1/auth/**","/api/v1/categories/**")
+                        .requestMatchers("/api/v1/auth/**","/api/v1/categories/**","/api/v1/subcategory/**")
                         .permitAll()
                         .anyRequest()
                         .authenticated())
