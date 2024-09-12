@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 public class SubCategoryResponse {
     private String id;
     private String name;
-    private CategoryResponse categoryResponse;
+    private CategoryResponse category;
 
 }

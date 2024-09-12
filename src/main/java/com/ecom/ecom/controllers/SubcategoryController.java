@@ -20,7 +20,7 @@ import com.ecom.ecom.services.SubcategoryService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/v1/subcategory/")
+@RequestMapping("/api/v1/subcategories/")
 @RequiredArgsConstructor
 public class SubcategoryController {
     private final SubcategoryService subcategoryService;

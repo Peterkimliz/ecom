@@ -39,7 +39,7 @@ public class SubcategoryService {
         subcategoryRepository.save(subcategory);
 
         return SubCategoryResponse.builder().name(subcategory.getName()).id(subcategory.getId())
-                .categoryResponse(CategoryResponse.builder().name(category.get().getName()).id(category.get().getId())
+                .category(CategoryResponse.builder().name(category.get().getName()).id(category.get().getId())
                         .image(category.get().getImage()).build())
                 .build();
     }
@@ -52,7 +52,7 @@ public class SubcategoryService {
         }
         return cOptional.stream()
                 .map(e -> SubCategoryResponse.builder().id(e.getId())
-                        .categoryResponse(CategoryResponse.builder().id(e.getCategoryId().getId())
+                        .category(CategoryResponse.builder().id(e.getCategoryId().getId())
                                 .image(e.getCategoryId().getImage()).name(e.getCategoryId().getName()).build())
                         .name(e.getName()).build())
                 .toList();
@@ -66,7 +66,7 @@ public class SubcategoryService {
         }
         return cOptional.stream()
                 .map(e -> SubCategoryResponse.builder().id(e.getId())
-                        .categoryResponse(CategoryResponse.builder().id(e.getCategoryId().getId())
+                        .category(CategoryResponse.builder().id(e.getCategoryId().getId())
                                 .image(e.getCategoryId().getImage()).name(e.getCategoryId().getName()).build())
                         .name(e.getName()).build())
                 .toList();
