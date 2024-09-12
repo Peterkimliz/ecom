@@ -4,5 +4,5 @@ spring:
     name: ecom
   data:
     mongodb:
-      # uri: mongodb+srv://peterkimani:kimani89@cluster0.l6ma0.mongodb.net/ecomstore?retryWrites=true&w=majority&appName=Cluster0
-      uri: mongodb://localhost:27017/ecom
+      uri: mongodb+srv://peterkimani:kimani89@cluster0.l6ma0.mongodb.net/ecomstore?retryWrites=true&w=majority&appName=Cluster0
+      # uri: mongodb://localhost:27017/ecom
