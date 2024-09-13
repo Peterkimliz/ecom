@@ -20,7 +20,7 @@ import com.ecom.ecom.services.VariantTypeService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/v1/varianttype/")
+@RequestMapping("/api/v1/varianttypes/")
 @RequiredArgsConstructor
 public class VariantTypeController {
     private final VariantTypeService variantTypeService;
