@@ -39,7 +39,7 @@ public class PosterService {
         Optional<Poster> cOptional = posterRepository.findById(id);
 
         if (!cOptional.isPresent()) {
-            throw new ResourceNotFound("Category Not Found");
+            throw new ResourceNotFound("Posters Not Found");
         }
 
         posterRepository.deleteById(id);
