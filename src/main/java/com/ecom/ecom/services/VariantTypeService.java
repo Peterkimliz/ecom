@@ -47,7 +47,7 @@ public class VariantTypeService {
         Optional<VariantType> cOptional = variantTypesRepository.findById(categoryId);
 
         if (!cOptional.isPresent()) {
-            throw new ResourceNotFound("Category Not Found");
+            throw new ResourceNotFound("Variant Not Found");
         }
 
         variantTypesRepository.deleteById(categoryId);
