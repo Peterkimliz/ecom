@@ -3,7 +3,7 @@ package com.ecom.ecom.controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ecom.ecom.dtos.CategoryDto;
+import com.ecom.ecom.dtos.CategoryRequest;
 import com.ecom.ecom.dtos.CategoryResponse;
 import com.ecom.ecom.services.CategoryService;
 
@@ -28,7 +28,7 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @PostMapping()
-    public ResponseEntity<CategoryResponse> createCategory(@RequestBody @Validated CategoryDto categoryDto) {
+    public ResponseEntity<CategoryResponse> createCategory(@RequestBody @Validated CategoryRequest categoryDto) {
 
         return new ResponseEntity<CategoryResponse>(categoryService.createCategory(categoryDto), HttpStatus.CREATED);
     }

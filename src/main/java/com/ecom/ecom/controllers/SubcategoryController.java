@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecom.ecom.dtos.SubCategoryResponse;
-import com.ecom.ecom.dtos.SubcategoryRequestDto;
+import com.ecom.ecom.dtos.SubcategoryRequest;
 import com.ecom.ecom.services.SubcategoryService;
 
 import lombok.RequiredArgsConstructor;
@@ -26,7 +26,7 @@ public class SubcategoryController {
     private final SubcategoryService subcategoryService;
 
     @PostMapping()
-    public ResponseEntity<SubCategoryResponse> createSubCategory(@RequestBody @Validated SubcategoryRequestDto subcategoryRequestDto) {
+    public ResponseEntity<SubCategoryResponse> createSubCategory(@RequestBody @Validated SubcategoryRequest subcategoryRequestDto) {
 
         return new ResponseEntity<SubCategoryResponse>(subcategoryService.createSubCategory(subcategoryRequestDto), HttpStatus.CREATED);
     }

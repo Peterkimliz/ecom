@@ -6,8 +6,8 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.ecom.ecom.dtos.BrandRequestDto;
-import com.ecom.ecom.dtos.BrandResponseDto;
+import com.ecom.ecom.dtos.BrandRequest;
+import com.ecom.ecom.dtos.BrandResponse;
 import com.ecom.ecom.dtos.CategoryResponse;
 import com.ecom.ecom.dtos.SubCategoryResponse;
 import com.ecom.ecom.exceptions.ResourceExists;
@@ -26,7 +26,7 @@ public class BrandService {
     private final BrandRepository brandRepository;
     private final SubcategoryRepository subcategoryRepository;
 
-    public BrandResponseDto createBrand(BrandRequestDto brandRequestDto) {
+    public BrandResponse createBrand(BrandRequest brandRequestDto) {
         Optional<Subcategory> sOptional = subcategoryRepository.findById(brandRequestDto.getSubcategoryId());
         Optional<Brand> bOptional = brandRepository.findByName(brandRequestDto.getName().toLowerCase());
 
@@ -41,7 +41,7 @@ public class BrandService {
         brandRepository.save(brand);
         Subcategory subcategory = sOptional.get();
 
-        return BrandResponseDto.builder().id(brand.getId()).name(brand.getName())
+        return BrandResponse.builder().id(brand.getId()).name(brand.getName())
                 .subcategory(createSubResponse(subcategory))
                 .build();
 
@@ -56,31 +56,31 @@ public class BrandService {
         brandRepository.deleteById(id);
     }
 
-    public List<BrandResponseDto> getAllBrands() {
+    public List<BrandResponse> getAllBrands() {
         List<Brand> bList = brandRepository.findAll();
         if (bList.size() == 0) {
             return new ArrayList<>();
         }
 
-        List<BrandResponseDto> brandResponseDtos = mapBrandToBrandResponseDto(bList);
+        List<BrandResponse> brandResponseDtos = mapBrandToBrandResponseDto(bList);
         return brandResponseDtos;
 
 }
 
-    public List<BrandResponseDto> getAllBrandsBySubcategory(String id) {
+    public List<BrandResponse> getAllBrandsBySubcategory(String id) {
 
         List<Brand> bList = brandRepository.findBySubcategory(id);
         if (bList.size() == 0) {
             return new ArrayList<>();
         }
-        List<BrandResponseDto> brandResponseDtos = mapBrandToBrandResponseDto(bList);
+        List<BrandResponse> brandResponseDtos = mapBrandToBrandResponseDto(bList);
         return brandResponseDtos;
     }
 
-    private List<BrandResponseDto> mapBrandToBrandResponseDto(List<Brand> bList) {
+    private List<BrandResponse> mapBrandToBrandResponseDto(List<Brand> bList) {
 
         return bList.stream().map(
-                e -> BrandResponseDto
+                e -> BrandResponse
                         .builder()
                         .id(e.getId())
                         .name(e.getName())

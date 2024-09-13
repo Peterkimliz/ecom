@@ -27,18 +27,17 @@ public class VariantTypeController {
 
 @PostMapping()
     public ResponseEntity<VariantTypeResponse> createVariantType(@RequestBody @Validated VariantTypeRequest variantTypeRequest) {
-
         return new ResponseEntity<VariantTypeResponse>(variantTypeService.createVariantType(variantTypeRequest), HttpStatus.CREATED);
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<String> deletePoster(@PathVariable("id") String id) {
+    public ResponseEntity<String> deleteVariantType(@PathVariable("id") String id) {
         variantTypeService.deletVariant(id);
         return new ResponseEntity<String>("VariantType Deleted", HttpStatus.OK);
     }
 
     @GetMapping()
-    public ResponseEntity<List<VariantTypeResponse>> getAllPosters() {
+    public ResponseEntity<List<VariantTypeResponse>> getAllVariantTypes() {
         List<VariantTypeResponse> posterResponses = variantTypeService.getVariantsType();
         return new ResponseEntity<List<VariantTypeResponse>>(posterResponses,
                 posterResponses.size() == 0 ? HttpStatus.NOT_FOUND : HttpStatus.OK);

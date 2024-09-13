@@ -7,7 +7,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.ecom.ecom.dtos.CategoryDto;
+import com.ecom.ecom.dtos.CategoryRequest;
 import com.ecom.ecom.dtos.CategoryResponse;
 import com.ecom.ecom.exceptions.ResourceExists;
 import com.ecom.ecom.exceptions.ResourceNotFound;
@@ -21,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 public class CategoryService {
     private final CategoryRepository categoryRepository;
 
-    public CategoryResponse createCategory(CategoryDto categoryDto) {
+    public CategoryResponse createCategory(CategoryRequest categoryDto) {
         Optional<Category> cOptional = categoryRepository.findByName(categoryDto.getName().toLowerCase());
 
         if (cOptional.isPresent()) {

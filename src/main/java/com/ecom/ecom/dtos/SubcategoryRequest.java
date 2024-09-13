@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SubcategoryRequestDto {
+public class SubcategoryRequest {
     @NotBlank(message = "name is required")
      private String name;
     @NotBlank(message = "categoryId is required")

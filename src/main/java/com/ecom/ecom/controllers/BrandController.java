@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ecom.ecom.dtos.BrandRequestDto;
-import com.ecom.ecom.dtos.BrandResponseDto;
+import com.ecom.ecom.dtos.BrandRequest;
+import com.ecom.ecom.dtos.BrandResponse;
 import com.ecom.ecom.services.BrandService;
 import lombok.RequiredArgsConstructor;
 
@@ -25,8 +25,8 @@ public class BrandController {
     private final BrandService brandService;
 
     @PostMapping()
-    public ResponseEntity<BrandResponseDto> createBrand(@RequestBody @Validated BrandRequestDto brandRequestDto) {
-        return new ResponseEntity<BrandResponseDto>(brandService.createBrand(brandRequestDto), HttpStatus.CREATED);
+    public ResponseEntity<BrandResponse> createBrand(@RequestBody @Validated BrandRequest brandRequestDto) {
+        return new ResponseEntity<BrandResponse>(brandService.createBrand(brandRequestDto), HttpStatus.CREATED);
     }
 
     @DeleteMapping("{id}")
@@ -36,16 +36,16 @@ public class BrandController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<BrandResponseDto>> getAllBrannds() {
-        List<BrandResponseDto> brandResponseDtos = brandService.getAllBrands();
-        return new ResponseEntity<List<BrandResponseDto>>(brandResponseDtos,
+    public ResponseEntity<List<BrandResponse>> getAllBrannds() {
+        List<BrandResponse> brandResponseDtos = brandService.getAllBrands();
+        return new ResponseEntity<List<BrandResponse>>(brandResponseDtos,
                 brandResponseDtos.size() == 0 ? HttpStatus.NOT_FOUND : HttpStatus.OK);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<List<BrandResponseDto>> getAllBrandsBySubCategories(@PathVariable("id") String id) {
-        List<BrandResponseDto> brandResponseDtos = brandService.getAllBrandsBySubcategory(id);
-        return new ResponseEntity<List<BrandResponseDto>>(brandResponseDtos,
+    public ResponseEntity<List<BrandResponse>> getAllBrandsBySubCategories(@PathVariable("id") String id) {
+        List<BrandResponse> brandResponseDtos = brandService.getAllBrandsBySubcategory(id);
+        return new ResponseEntity<List<BrandResponse>>(brandResponseDtos,
                 brandResponseDtos.size() == 0 ? HttpStatus.NOT_FOUND : HttpStatus.OK);
     }
 

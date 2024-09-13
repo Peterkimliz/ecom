@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.ecom.ecom.dtos.UserRegistrationDto;
-import com.ecom.ecom.dtos.UserResponseDto;
+import com.ecom.ecom.dtos.UserRegistration;
+import com.ecom.ecom.dtos.UserResponse;
 import com.ecom.ecom.exceptions.ResourceExists;
 import com.ecom.ecom.models.Role;
 import com.ecom.ecom.models.UserModel;
@@ -21,8 +21,8 @@ public class AuthenticationService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UserResponseDto registerUser(UserRegistrationDto userRequestDto) {
-        System.out.println("hello");
+    public UserResponse registerUser(UserRegistration userRequestDto) {
+       
         Optional<UserModel> uOptional = userRepository.findByEmail(userRequestDto.getEmail());
         System.out.println(uOptional);
         if (uOptional.isPresent()) {
@@ -40,7 +40,7 @@ public class AuthenticationService {
                 .role(Role.USER)
                 .build();
         userRepository.save(userModel);
-        return UserResponseDto.builder().createdAt(userModel.getCreatedAt()).email(userModel.getEmail())
+        return UserResponse.builder().createdAt(userModel.getCreatedAt()).email(userModel.getEmail())
                 .firstName(userModel.getFirstName()).lastName(userModel.getLastName()).id(userModel.getId())
                 .phone(userModel.getPhone()).build();
 

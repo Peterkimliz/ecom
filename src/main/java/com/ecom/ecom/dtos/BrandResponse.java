@@ -6,7 +6,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class BrandResponseDto {
+public class BrandResponse {
     private String id;
     private String name;
     private SubCategoryResponse subcategory;

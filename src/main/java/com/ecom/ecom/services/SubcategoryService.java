@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import com.ecom.ecom.dtos.CategoryResponse;
 import com.ecom.ecom.dtos.SubCategoryResponse;
-import com.ecom.ecom.dtos.SubcategoryRequestDto;
+import com.ecom.ecom.dtos.SubcategoryRequest;
 import com.ecom.ecom.exceptions.ResourceExists;
 import com.ecom.ecom.exceptions.ResourceNotFound;
 import com.ecom.ecom.models.Category;
@@ -22,7 +22,7 @@ public class SubcategoryService {
     private final CategoryRepository categoryRepository;
     private final SubcategoryRepository subcategoryRepository;
 
-    public SubCategoryResponse createSubCategory(SubcategoryRequestDto subcategoryRequestDto) {
+    public SubCategoryResponse createSubCategory(SubcategoryRequest subcategoryRequestDto) {
         Optional<Subcategory> cOptional = subcategoryRepository
                 .findByName(subcategoryRequestDto.getName().toLowerCase());
         Optional<Category> category = categoryRepository.findById(subcategoryRequestDto.getCategoryId());
