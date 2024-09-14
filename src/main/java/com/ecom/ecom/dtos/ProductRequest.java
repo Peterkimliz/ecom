@@ -33,7 +33,7 @@ public class ProductRequest {
     private String brand;
     private String variantType;
     private List<String> variants ;
-    @NotNull(message = "images list cannot be null")
+    // @NotBlank(message = "images list cannot be empty")
     @Size(min = 1, message = "At least one image URL must be provided")
     private List<String> images;
 }

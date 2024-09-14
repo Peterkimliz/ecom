@@ -1,4 +1,5 @@
 package com.ecom.ecom.dtos;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,5 +15,6 @@ public class ProductUpdate {
     private String quantity;
     private String price;
     private String offerPrice;
-    private List<String> images;
+    @Builder.Default
+    private List<String> images=new ArrayList<>();
 }

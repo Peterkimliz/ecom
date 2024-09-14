@@ -1,6 +1,6 @@
 package com.ecom.ecom.models;
-import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -26,9 +26,11 @@ public class Product {
     @DBRef(lazy = true)
     private Subcategory subcategory;
     @DBRef(lazy = true)
-    private Brand brand;
+    @Builder.Default
+    private Brand brand=Brand.builder().build();
     @DBRef(lazy = true)
-    private VariantType variantType;
+    @Builder.Default
+    private VariantType variantType=VariantType.builder().build();
     @DBRef(lazy = true)
     @Builder.Default
     private List<Variant> variants = new ArrayList<>();
