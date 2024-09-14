@@ -3,6 +3,8 @@ package com.ecom.ecom.controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.ecom.ecom.dtos.ProductPageResponse;
 import com.ecom.ecom.dtos.ProductRequest;
 import com.ecom.ecom.dtos.ProductResponse;
 import com.ecom.ecom.dtos.ProductUpdate;
@@ -22,26 +24,26 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-@RequestMapping("/api/v1/products/")
+@RequestMapping("/api/v1/products")
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
-    @PostMapping()
+    @PostMapping("/")
     public ResponseEntity<ProductResponse> createProduct(@RequestBody @Validated ProductRequest productRequest) {
         return new ResponseEntity<ProductResponse>(productService.createProduct(productRequest), HttpStatus.CREATED);
     }
-   @PutMapping("{id}")
+   @PutMapping("/{id}")
     public ResponseEntity<ProductResponse> updateProduct(@PathVariable("id") String id,@RequestBody  ProductUpdate productUpdate) {
         return new ResponseEntity<ProductResponse>(productService.updateProduct(id,productUpdate), HttpStatus.CREATED);
     }
     
-    @GetMapping("products/{id}")
+    @GetMapping("/products/{id}")
     public ResponseEntity<ProductResponse> getProductById(@PathVariable("id") String id) {
       
         return new ResponseEntity<ProductResponse>(productService.getProductById(id), HttpStatus.OK);
     }
 
-    @GetMapping("all")
+    @GetMapping("/all")
     public ResponseEntity<List<ProductResponse>> getAllProducts() {
         List<ProductResponse> productResponses = productService.getAllProducts();
         return new ResponseEntity<List<ProductResponse>>(productResponses,
@@ -49,18 +51,17 @@ public class ProductController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<ProductResponse>> getFilteredProducts(
-            @RequestParam(name = "page",required = false) int page,
-            @RequestParam(name = "limit",required = false) int limit,
-            @RequestParam(name="categoryId",required = false) String categoryId,
-            @RequestParam(name="subcategoryId",required = false) String subCategoryId,
-            @RequestParam(name="brandId",required = false) String brandId,
+    public ResponseEntity<ProductPageResponse>getFilteredProducts(
+            @RequestParam(name = "page",required = false,defaultValue = "0") int page,
+            @RequestParam(name = "limit",required = false,defaultValue = "20") int limit,
+            @RequestParam(name="category",required = false) String category,
+            @RequestParam(name="subcategory",required = false) String subCategory,
+            @RequestParam(name="brand",required = false) String brand,
             @RequestParam(name="name",required = false) String name,
             @RequestParam(name="quantity",required = false) String quantity,
             @RequestParam(name="price",required = false) String price ) {
-        List<ProductResponse> productResponses = productService.getAllProductsPaginated(page, limit,categoryId,subCategoryId,brandId,name,quantity,price);
-        return new ResponseEntity<List<ProductResponse>>(productResponses,
-                productResponses.size() == 0 ? HttpStatus.NOT_FOUND : HttpStatus.OK);
+                ProductPageResponse productResponses = productService.getAllProductsPaginated(page, limit,category,subCategory,brand,name,quantity,price);
+        return new ResponseEntity<ProductPageResponse>(productResponses, HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")

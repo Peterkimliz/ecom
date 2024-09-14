@@ -4,9 +4,16 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import com.ecom.ecom.dtos.BrandResponse;
 import com.ecom.ecom.dtos.CategoryResponse;
+import com.ecom.ecom.dtos.ProductPageResponse;
 import com.ecom.ecom.dtos.ProductRequest;
 import com.ecom.ecom.dtos.ProductResponse;
 import com.ecom.ecom.dtos.ProductUpdate;
@@ -95,14 +102,15 @@ public class ProductService {
                         : Integer.parseInt(productUpdate.getQuantity()))
                 .offerPrice(productUpdate.getOfferPrice() == null ? foundProduct.getOfferPrice()
                         : Integer.parseInt(productUpdate.getOfferPrice()))
-                .images(productUpdate.getImages().size()==0 ? foundProduct.getImages() : productUpdate.getImages())
+                .images(productUpdate.getImages().size() == 0 ? foundProduct.getImages() : productUpdate.getImages())
                 // .variantType(foundProduct.getVariantType())
                 // .brand(foundProduct.getBrand())
                 // .variants(foundProduct.getVariants())
-                .description(productUpdate.getDescription()==null?foundProduct.getDescription():productUpdate.getDescription())
+                .description(productUpdate.getDescription() == null ? foundProduct.getDescription()
+                        : productUpdate.getDescription())
 
                 .build();
-                System.out.println(product);
+        System.out.println(product);
         productRepository.save(product);
         return createProductResponse(product);
 
@@ -135,14 +143,53 @@ public class ProductService {
         return products.stream().map(e -> createProductResponse(e)).toList();
     }
 
-    public List<ProductResponse> getAllProductsPaginated(int page, int limit, String categoryId, String subCategoryId,
-            String brandId, String name, String quantity, String price) {
+    public ProductPageResponse getAllProductsPaginated(int page, int limit, String category, String subCategory,
+     String brandId, String name, String quantity, String price) {
+        Sort sort = Sort.by(Direction.DESC, "createdAt");
+        Pageable pageable = PageRequest.of(page, limit, sort);
 
-        List<Product> products = productRepository.findAll();
-        if (products.size() == 0) {
-            return new ArrayList<>();
+        Page<Product> products = Page.empty(pageable);
+
+
+        if((category!=null && !category.isEmpty())&&name != null && !name.isEmpty()){
+            System.out.println("name and category");
+            products = productRepository.findByNameAndCategory(name,category ,pageable);
         }
-        return products.stream().map(e -> createProductResponse(e)).toList();
+        else if((subCategory!=null && !subCategory.isEmpty())&&name != null && !name.isEmpty()){
+            System.out.println("name and category");
+            products = productRepository.findByNameAndSubcategory(name,subCategory ,pageable);
+        }
+
+        else if (name != null && !name.isEmpty()) {
+            System.out.println("name");
+            products = productRepository.findByName(name, pageable);
+
+        }
+         else if (category!=null && !category.isEmpty()) {
+            System.out.println("category");
+            products = productRepository.findByCategory(category, pageable);
+
+        } 
+        else if ((subCategory!=null && !subCategory.isEmpty())) {
+            System.out.println("subCategory");
+            products = productRepository.findBySubcategory(subCategory, pageable);
+        } 
+        else {
+            System.out.println("finally");
+            products = productRepository.findAll(pageable);
+
+        }
+        // products =
+        // productRepository.findByNameAndCategoryAndSubcategoryAndBrandId(name,categoryId,subCategoryId,brandId,pageable);
+
+        List<ProductResponse> pList = products.stream().map(e -> createProductResponse(e)).toList();
+        return ProductPageResponse.builder()
+                .data(pList)
+                .totalPages(products.getTotalPages())
+                .pageSize(products.getSize())
+                .pageNumber(page)
+                .totalElements(products.getTotalElements()).build();
+
     }
 
     private VariantType getVariantType(String variantType) {
@@ -180,8 +227,8 @@ public class ProductService {
     }
 
     private ProductResponse createProductResponse(Product product) {
-        boolean brandIsEmpty=product.getBrand()==null;
-        boolean variantIsEmpty=product.getVariantType()==null;
+        boolean brandIsEmpty = product.getBrand() == null;
+        boolean variantIsEmpty = product.getVariantType() == null;
         ProductResponse productResponse = ProductResponse
                 .builder()
                 .name(product.getName())
@@ -194,12 +241,12 @@ public class ProductService {
                 .images(product.getImages())
                 .category(createCategoryResponse(product.getCategory()))
                 .subcategory(createSubCategoryResponse(product.getSubcategory()))
-                .brand(createBrand(brandIsEmpty==true?Brand.builder().build():product.getBrand()))
-                .variantType(createVariantType(variantIsEmpty==true?VariantType.builder().build():product.getVariantType()))
+                .brand(createBrand(brandIsEmpty == true ? Brand.builder().build() : product.getBrand()))
+                .variantType(createVariantType(
+                        variantIsEmpty == true ? VariantType.builder().build() : product.getVariantType()))
                 .variants(createVariants(product.getVariants()))
                 .build();
-               
-        
+
         return productResponse;
     }
 

@@ -29,8 +29,24 @@ public class WebSecurity {
         httpSecurity
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/api/v1/auth/**", "/api/v1/categories/**", "/api/v1/subcategories/**",
-                                "/api/v1/brands/**", "/api/v1/posters/**", "/api/v1/varianttypes/**","/api/v1/variants/**","/api/v1/products/**")
+                        .requestMatchers("/api/v1/auth/**",
+                                "/api/v1/categories/**",
+                                "/api/v1/subcategories/**",
+                                "/api/v1/brands/**",
+                                "/api/v1/posters/**",
+                                "/api/v1/varianttypes/**",
+                                "/api/v1/variants/**",
+                                "/api/v1/products/**",
+                                "/v2/api-docs",
+                                "/v3/api-docs",
+                                "/v3/api-docs/**",
+                                "/swagger-resources",
+                                "/swagger-resources/**",
+                                "/configuration/ui",
+                                "/configuration/security",
+                                "/swagger-ui/**",
+                                "/wejars/**",
+                                "/swagger-ui.html")
                         .permitAll()
                         .anyRequest()
                         .authenticated())
