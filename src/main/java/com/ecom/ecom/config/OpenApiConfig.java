@@ -16,7 +16,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
             
          ),
          description = "Open Api documentation for ecom",
-         title = "OpenApi specification-Realtor",
+         title = "OpenApi specification-ecom",
          version ="1.0"
     ) 
     ,servers = {
