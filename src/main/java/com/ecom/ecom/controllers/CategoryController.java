@@ -7,6 +7,7 @@ import com.ecom.ecom.dtos.CategoryRequest;
 import com.ecom.ecom.dtos.CategoryResponse;
 import com.ecom.ecom.services.CategoryService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RestController
 @RequestMapping("/api/v1/categories/")
 @RequiredArgsConstructor
+@Tag(name = "Category")
 public class CategoryController {
     private final CategoryService categoryService;
 

@@ -17,11 +17,13 @@ import com.ecom.ecom.dtos.SubCategoryResponse;
 import com.ecom.ecom.dtos.SubcategoryRequest;
 import com.ecom.ecom.services.SubcategoryService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/v1/subcategories/")
 @RequiredArgsConstructor
+@Tag(name = "SubCategory")
 public class SubcategoryController {
     private final SubcategoryService subcategoryService;
 

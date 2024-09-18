@@ -17,11 +17,13 @@ import com.ecom.ecom.dtos.VariantTypeRequest;
 import com.ecom.ecom.dtos.VariantTypeResponse;
 import com.ecom.ecom.services.VariantTypeService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/v1/varianttypes/")
 @RequiredArgsConstructor
+@Tag(name = "VariantType")
 public class VariantTypeController {
     private final VariantTypeService variantTypeService;
 

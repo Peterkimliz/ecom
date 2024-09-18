@@ -16,11 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ecom.ecom.dtos.BrandRequest;
 import com.ecom.ecom.dtos.BrandResponse;
 import com.ecom.ecom.services.BrandService;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/v1/brands/")
 @RequiredArgsConstructor
+@Tag(name = "Brand")
 public class BrandController {
     private final BrandService brandService;
 

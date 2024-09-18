@@ -15,11 +15,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ecom.ecom.dtos.VariantRequest;
 import com.ecom.ecom.dtos.VariantResponse;
 import com.ecom.ecom.services.VariantService;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/v1/variants/")
+
 @RequiredArgsConstructor
+@Tag(name = "Variant")
 public class VariantController {
     private final VariantService variantService;
 

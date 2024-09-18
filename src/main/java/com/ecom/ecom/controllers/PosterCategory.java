@@ -16,11 +16,13 @@ import com.ecom.ecom.dtos.PosterRequest;
 import com.ecom.ecom.dtos.PosterResponse;
 import com.ecom.ecom.services.PosterService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/v1/posters/")
 @RequiredArgsConstructor
+@Tag(name = "Poster")
 public class PosterCategory {
 private final PosterService posterService;
 
