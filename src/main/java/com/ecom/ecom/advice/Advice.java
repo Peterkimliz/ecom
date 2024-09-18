@@ -27,6 +27,32 @@ public class Advice {
         ErrorObject errorObject = ErrorObject.builder().message(resourceExists.getMessage()).build();
         return new ResponseEntity<ErrorObject>(errorObject, HttpStatus.NOT_FOUND);
     }
+    @ExceptionHandler(io.jsonwebtoken.ExpiredJwtException .class)
+    public ResponseEntity<ErrorObject> expiredToken(io.jsonwebtoken.ExpiredJwtException  resourceExists) {
+        ErrorObject errorObject = ErrorObject.builder().message("expired token").build();
+        return new ResponseEntity<ErrorObject>(errorObject, HttpStatus.FORBIDDEN);
+    }
+    @ExceptionHandler(io.jsonwebtoken.MalformedJwtException .class)
+    public ResponseEntity<ErrorObject> malformedJwtException(io.jsonwebtoken.MalformedJwtException  resourceExists) {
+        ErrorObject errorObject = ErrorObject.builder().message("Invalid token").build();
+        return new ResponseEntity<ErrorObject>(errorObject, HttpStatus.FORBIDDEN);
+    }
+
+
+
+
+    @SuppressWarnings("deprecation")
+    @ExceptionHandler(io.jsonwebtoken.SignatureException .class)
+    public ResponseEntity<ErrorObject>signatureException(io.jsonwebtoken.SignatureException  resourceExists) {
+        ErrorObject errorObject = ErrorObject.builder().message("Invalid token").build();
+        return new ResponseEntity<ErrorObject>(errorObject, HttpStatus.FORBIDDEN);
+    }
+
+
+
+
+
+
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorObject> missingData(MethodArgumentNotValidException methodArgumentNotValidException) {

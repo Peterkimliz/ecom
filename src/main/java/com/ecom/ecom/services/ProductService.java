@@ -175,7 +175,7 @@ public class ProductService {
             products = productRepository.findBySubcategory(subCategory, pageable);
         } 
         else {
-            System.out.println("finally");
+           
             products = productRepository.findAll(pageable);
 
         }

@@ -68,8 +68,8 @@ public class AuthenticationService {
                 .email(userModel.getEmail())
                 .firstName(userModel.getFirstName()).lastName(userModel.getLastName()).id(userModel.getId())
                 .phone(userModel.getPhone()).build();
-
         String token = jwtService.generateToken(userModel);
+    
         return AuthenticationResponse.builder().data(userResponse).token(token).build();
 
     }

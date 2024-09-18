@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -16,13 +17,11 @@ import io.jsonwebtoken.security.Keys;
 
 @Service
 public class JwtService {
-    
 
-
-    private  String SECRET="Ef09upJbh0gSouoC51L9+Lzzgfq4oJG6b7xBK+Yhs4rNZVuGXu541StOS4l1r9IU " ;
+    private String SECRET = "Ef09upJbh0gSouoC51L9+Lzzgfq4oJG6b7xBK+Yhs4rNZVuGXu541StOS4l1r9IU ";
 
     public String extractUsername(String token) {
-      
+
         return extractClaim(token, Claims::getSubject);
     }
 
@@ -33,9 +32,9 @@ public class JwtService {
 
     private Claims extractAllClaims(String token) {
         return Jwts
-                .parser()
-                
+                .parserBuilder()
                 .setSigningKey(getSigningKey())
+                .build()
                 .parseClaimsJws(token)
                 .getBody();
     }
@@ -50,14 +49,20 @@ public class JwtService {
     }
 
     public String generateToken(UserDetails userDetails, Map<String, Object> claims) {
-        return Jwts
-                .builder()
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 100 * 60 * 24))
-                .setSubject(userDetails.getUsername())
-                .setClaims(claims)
-                .signWith(SignatureAlgorithm.HS256, getSigningKey())
-                .compact();
+           return Jwts
+                    .builder()
+                    .setClaims(claims)
+                    .addClaims(claims)
+                    .setClaims(claims)
+                    .setSubject(userDetails.getUsername())
+                    .setIssuedAt(new Date(System.currentTimeMillis()))
+                    .setExpiration(new Date(System.currentTimeMillis()+60*1000*24))
+                    .signWith( getSigningKey(),SignatureAlgorithm.HS256)
+                    .compact();
+
+
+       
+
     }
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
