@@ -3,8 +3,10 @@ package com.ecom.ecom.controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ecom.ecom.dtos.AuthenticationResponse;
 import com.ecom.ecom.dtos.UserRegistration;
 import com.ecom.ecom.dtos.UserResponse;
+import com.ecom.ecom.dtos.UserSignIn;
 import com.ecom.ecom.services.AuthenticationService;
 
 import lombok.RequiredArgsConstructor;
@@ -25,6 +27,10 @@ public class AuthenticatonController {
     public ResponseEntity<UserResponse> registerUser(@RequestBody  @Validated UserRegistration userRegistrationDto) {
         return new ResponseEntity<UserResponse>(authenticationService.registerUser(userRegistrationDto),
                 HttpStatus.CREATED);
+    }
+    @PostMapping("login")
+    public ResponseEntity<AuthenticationResponse> loginUser(@RequestBody  @Validated UserSignIn userSignIn) {
+        return new ResponseEntity<AuthenticationResponse>(authenticationService.loginUser(userSignIn),  HttpStatus.CREATED);
     }
 
 }
